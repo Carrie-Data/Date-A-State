@@ -1,0 +1,138 @@
+body {
+    font: 18px sans-serif;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  .bar {
+    fill: orange;
+  }
+  
+  .solidArc:hover {
+    fill: orangered ;
+  }
+  
+  .solidArc {
+      -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+  }
+  
+  .x.axis path {
+    display: none;
+  }
+  
+  .aster-score { 
+    line-height: 1;
+    font-weight: bold;
+    font-size: 500%;
+  }
+  
+  .d3-tip {
+    line-height: 2;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+  
+  /* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+  
+  /* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+  
+.leaflet-popup-content {
+ text-align: center;
+}
+
+h4{
+    margin-left: 20px
+}
+
+.form-control{
+    width: 20%;
+    margin: 20px
+}
+
+div#choropleth_map {
+    width: 1000px;
+    height: 500px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 80px;
+}
+
+div#cluster_map {
+    width: 1000px;
+    height: 500px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 80px;
+}
+
+iframe {
+    width: 750px;
+    height: 750px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 80px;
+}
+/* CSS from the Leaflet-Choropleth documentation */
+.legend {
+ padding: 6px 8px;
+ font: 12px Arial, Helvetica, sans-serif;
+ font-weight: bold;
+ color: #555;
+ background: #fff;
+ background: rgba(255, 255, 255, 0.8);
+ border-radius: 5px;
+ box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.legend ul {
+ padding: 0;
+ margin: 0;
+ clear: both;
+ list-style-type: none;
+}
+
+.legend li {
+ display: inline-block;
+ width: 30px;
+ height: 22px;
+}
+
+.legend .min {
+ float: left;
+ padding-bottom: 5px;
+}
+
+.legend .max {
+ float: right;
+}
+
+h1 {
+ text-align: center;
+}

@@ -1,6 +1,11 @@
 body {
     font: 18px sans-serif;
   }
+
+  .aster.container{
+    width: 600px;
+    height: 600px;
+  }
   
   .axis path,
   .axis line {

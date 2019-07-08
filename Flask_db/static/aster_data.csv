@@ -1,15 +1,5 @@
-id,order,score,weight,color,label
-HI,1.1,59,1,#9E0041,Income
-POP,1.3,24,1,#C32F4B,Population
-AO,2,98,1,#E1514B,Artisanal Fishing Opportunities
-NP,3,60,1,#F47245,Natural Products
-CS,4,74,1,#FB9F59,Carbon Storage
-CP,5,70,1,#FEC574,Coastal Protection
-TR,6,42,1,#FAE38C,Tourism &  Recreation
-LIV,7.1,77,1,#EAF195,Livelihoods
-ECO,7.3,88,1,#C7E89E,Economies
-ICO,8.1,60,1,#9CD6A4,Iconic Species
-LSP,8.3,65,1,#6CC4A4,Lasting Special Places
-CW,9,71,1,#4D9DB4,Clean Waters
-HAB,10.1,88,1,#4776B4,Habitats
-SPP,10.3,83,1,#5E4EA1,Species
+score,weight,color,label
+1,1,#9E0041,Income
+1,1,#FB9F59,Population
+1,1,#1831ed,Rent
+1,1,#229e1e,Mortgage

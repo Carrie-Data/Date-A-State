@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
             var popInput = d3.select('.population.form-control').property('value');
             console.log(popInput);
 
+            var rentInput = d3.select('.rent.form-control').property('value');
+            console.log(rentInput);
+
+            var mortgageInput = d3.select('.mortgage.form-control').property('value');
+            console.log(mortgageInput);
+
             var width = 550,
                 height = 550,
                 radius = Math.min(width, height) / 2,
@@ -65,26 +71,38 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 var stateInfo = agg_aster_data.filter(d => d.state === stateInput)[0];
 
                 var incomeScale = d3.scaleLinear()
-                    .domain([(15000 / stateInfo.income), (80000 / stateInfo.income)])
+                    .domain([(14000 / stateInfo.income), (81000 / stateInfo.income)])
                     .range([0, 100]);
                 var incomeMatch = incomeScale(incomeInput/stateInfo.income)
 
                 var popScale = d3.scaleLinear()
-                    .domain([(500000 / stateInfo.population), (10000000 / stateInfo.population)])
+                    .domain([(400000 / stateInfo.population), (10100000 / stateInfo.population)])
                     .range([0, 100]);
-                var popMatch = popScale(incomeInput / stateInfo.population)
+                var popMatch = popScale(popInput / stateInfo.population)
 
-                data[1].score = incomeMatch;
-                data[2].score = popMatch;
+                var rentScale = d3.scaleLinear()
+                    .domain([(600 / stateInfo.rent), (1400 / stateInfo.rent)])
+                    .range([0, 100]);
+                var rentMatch = rentScale(rentInput / stateInfo.rent)
+
+                var mortgageScale = d3.scaleLinear()
+                    .domain([(260 / stateInfo.mortgage), (950 / stateInfo.mortgage)])
+                    .range([0, 100]);
+                var mortgageMatch = mortgageScale(mortgageInput / stateInfo.mortgage)
+
+                data[0].score = incomeMatch;
+                data[1].score = popMatch;
+                data[2].score = rentMatch;
+                data[3].score = mortgageMatch;
                 console.log(incomeMatch);
                 console.log(popMatch);
+                console.log(rentMatch);
+                console.log(mortgageMatch);
 
                 // State size
-                data = data.slice(0, 2);
+                data = data.slice(0, 4);
                 data.forEach(function (d) {
-                    d.id = d.id;
                     d.color = d.color;
-                    d.weight = 1;
                     d.score = +d.score;
                     d.width = +d.weight;
                     d.label = d.label;
@@ -111,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 
                 // calculate the weighted mean score
-                var score = (incomeMatch + popMatch) / 2;
+                var score = (incomeMatch + popMatch + mortgageMatch + rentMatch) / 4;
 
                 svg.append("svg:text")
                     .attr("class", "aster-score")
@@ -132,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     /* Your D3.js here */
     //Dropdown List
     //Choropleth Dropdown
-    var choropleth_select_options = ['income', 'mortgage', 'population', 'female_pop', 'male_pop', 'single', 'seperated', 'divorced', 'land', 'water']
+    var choropleth_select_options = ['income', ,'rent','mortgage', 'population', 'female_pop', 'male_pop', 'single', 'seperated', 'divorced', 'land', 'water']
 
     var choroplethDropdown = d3.select('select.choropleth');
 
@@ -178,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             "LSAD": feature.properties.LSAD,
                             "CENSUSAREA": feature.properties.CENSUSAREA,
                             'income': parseInt(csv_datum.income),
+                            'rent': parseInt(csv_datum.rent),
                             'mortgage': parseInt(csv_datum.mortgage),
                             'population': parseInt(csv_datum.population),
                             'female_pop': parseFloat(csv_datum.female_pop_percentage).toFixed(2),

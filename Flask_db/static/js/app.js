@@ -9,66 +9,80 @@ document.addEventListener("DOMContentLoaded", function (e) {
             states.attr("value", state).text(state);
         });
 
-    });
+        console.log(agg_aster_data);
 
+        d3.select('button').on('click', function () {
 
-        d3.csv('/static/aster_data.csv', function (err, data) {
-            console.log(data)
+            var stateInput = d3.select('.state.form-control').property('value')
+            console.log(stateInput);
 
-            d3.select('button').on('click', function () {
+            var incomeInput = d3.select('.income.form-control').property('value');
+            console.log(incomeInput);
 
-                var stateInput = d3.select('.state.form-control').property('value')
-                console.log(stateInput);
+            var popInput = d3.select('.population.form-control').property('value');
+            console.log(popInput);
 
-                var incomeInput = d3.select('.income.form-control').property('value');
-                console.log(incomeInput);
+            var width = 550,
+                height = 550,
+                radius = Math.min(width, height) / 2,
+                innerRadius = 0.3 * radius;
 
-                var popInput = d3.select('.population.form-control').property('value');
-                console.log(popInput);
+            var pie = d3.pie()
+                .sort(null)
+                .value(function (d) {
+                    return d.width
+                });
 
-            });
+            // var tip = d3.tip()
+            //     .attr('class', 'd3-tip')
+            //     .offset([0, 0])
+            //     .html(function (d) {
+            //         return d.data.label + ": <span style='color:red'>" + d.data.score + "</span>"
+            //     });
 
-                var width = 550,
-                    height = 550,
-                    radius = Math.min(width, height) / 2,
-                    innerRadius = 0.3 * radius;
+            var arc = d3.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(function (d) {
+                    return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius;
+                });
 
-                var pie = d3.pie()
-                    .sort(null)
-                    .value(function (data) {
-                        return data.width
-                    });
+            var outlineArc = d3.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(radius);
 
-                // var tip = d3.tip()
-                //     .attr('class', 'd3-tip')
-                //     .offset([0, 0])
-                //     .html(function (d) {
-                //         return d.label + ": <span style='color:red'>" + d.score + "</span>";
-                //     });
+            var svg = d3.select(".aster.container")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+            // .call(tip);
 
-                var arc = d3.arc()
-                    .innerRadius(innerRadius)
-                    .outerRadius(function (d) {
-                        return (radius - innerRadius) * (d.score / 100.0) + innerRadius;
-                    });
+            d3.csv('/static/aster_data.csv', function (err, data) {
 
-                var outlineArc = d3.arc()
-                    .innerRadius(innerRadius)
-                    .outerRadius(radius);
+                console.log(data);
 
-                var svg = d3.select(".aster.container").append("svg")
-                    .attr("width", width)
-                    .attr("height", height)
-                    .append("g")
-                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                var stateInfo = agg_aster_data.filter(d => d.state === stateInput)[0];
 
-                // svg.call(tip);
+                var incomeScale = d3.scaleLinear()
+                    .domain([(15000 / stateInfo.income), (80000 / stateInfo.income)])
+                    .range([0, 100]);
+                var incomeMatch = incomeScale(incomeInput/stateInfo.income)
+
+                var popScale = d3.scaleLinear()
+                    .domain([(500000 / stateInfo.population), (10000000 / stateInfo.population)])
+                    .range([0, 100]);
+                var popMatch = popScale(incomeInput / stateInfo.population)
+
+                data[1].score = incomeMatch;
+                data[2].score = popMatch;
+                console.log(incomeMatch);
+                console.log(popMatch);
 
                 // State size
-                data = data.slice(0, 15);
+                data = data.slice(0, 2);
                 data.forEach(function (d) {
                     d.id = d.id;
-                    d.order = +d.order;
                     d.color = d.color;
                     d.weight = 1;
                     d.score = +d.score;
@@ -76,34 +90,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     d.label = d.label;
                 });
 
-                template = {
-                    color: "#C32F4B",
-                    id: "MAR",
-                    label: 'Mariculture',
-                    order: 0,
-                    score: 5,
-                    weight: 0,
-                    width: 0
-
-                    // color: "#C23F4B"
-                    // id: "State"
-                    // label: "bkb"
-                    // order: 1.3
-                    // score: 24
-                    // weight: 1
-                    // width: 1
-                };
-
-
                 var path = svg.selectAll(".solidArc")
                     .data(pie(data))
-                    .enter().append("path")
+                    .enter()
+                    .append("path")
                     .attr("fill", function (d) { return d.data.color; })
                     .attr("class", "solidArc")
                     .attr("stroke", "gray")
                     .attr("d", arc)
-                    // .on('mouseover', tip.show)
-                    // .on('mouseout', tip.hide);
+                // .on('mouseover', tip.show)
+                // .on('mouseout', tip.hide);
 
                 var outerPath = svg.selectAll(".outlineArc")
                     .data(pie(data))
@@ -114,30 +110,23 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     .attr("d", outlineArc);
 
 
-                // // calculate the weighted mean score
-                // var score =
-                //   data.reduce(function (a, b) {
-                //     //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-                //     return a + (b.score * b.weight);
-                //   }, 0) /
-                //   data.reduce(function (a, b) {
-                //     return a + b.weight;
-                //   }, 0);
+                // calculate the weighted mean score
+                var score = (incomeMatch + popMatch) / 2;
 
                 svg.append("svg:text")
                     .attr("class", "aster-score")
                     .attr("dy", ".35em")
                     .attr("text-anchor", "middle") // text-align: right
-                    .text(Math.round(data.score));
+                    .text(Math.round(score));
 
                 //End event listener
-            // });
+            });
 
             //End d3.csv
         });
 
         //End d3.json
-    // });
+    });
 
 
     /* Your D3.js here */

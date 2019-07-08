@@ -70,26 +70,57 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                 var stateInfo = agg_aster_data.filter(d => d.state === stateInput)[0];
 
+                var incomeList = agg_aster_data.map(d => d.income);
+                var popList = agg_aster_data.map(d => d.population);
+                var rentList = agg_aster_data.map(d => d.rent);
+                var mortgageList = agg_aster_data.map(d => d.mortgage);
+
+                // Income Calculations
+                if (incomeInput > stateInfo.income) {
+                    var incomeDiff = incomeInput - stateInfo.income
+                } else { 
+                    var incomeDiff = stateInfo.income - incomeInput
+                };
+                console.log(incomeDiff);
                 var incomeScale = d3.scaleLinear()
-                    .domain([(14000 / stateInfo.income), (81000 / stateInfo.income)])
+                    .domain([(Math.max.apply(null, incomeList) - Math.min.apply(null, incomeList)), (0)])
                     .range([0, 100]);
-                var incomeMatch = incomeScale(incomeInput/stateInfo.income)
+                var incomeMatch = incomeScale(incomeDiff)
 
+                // Population Calculations
+                if (popInput > stateInfo.population) {
+                    var popDiff = popInput - stateInfo.population
+                } else {
+                    var popDiff = stateInfo.population - popInput
+                };
                 var popScale = d3.scaleLinear()
-                    .domain([(400000 / stateInfo.population), (10100000 / stateInfo.population)])
+                    .domain([(Math.max.apply(null, popList) - Math.min.apply(null, popList)), (0)])
                     .range([0, 100]);
-                var popMatch = popScale(popInput / stateInfo.population)
+                var popMatch = popScale(popDiff)
 
+                // Rent Calculations
+                if (rentInput > stateInfo.rent) {
+                    var rentDiff = rentInput - stateInfo.rent
+                } else {
+                    var rentDiff = stateInfo.rent - rentInput
+                };
                 var rentScale = d3.scaleLinear()
-                    .domain([(600 / stateInfo.rent), (1400 / stateInfo.rent)])
+                    .domain([(Math.max.apply(null, rentList) - Math.min.apply(null, rentList)), (0)])
                     .range([0, 100]);
-                var rentMatch = rentScale(rentInput / stateInfo.rent)
+                var rentMatch = rentScale(rentDiff)
 
-                var mortgageScale = d3.scaleLinear()
-                    .domain([(260 / stateInfo.mortgage), (950 / stateInfo.mortgage)])
+                // Mortgage Calculations
+                if (mortgageInput > stateInfo.mortgage) {
+                    var mortgageDiff = mortgageInput - stateInfo.mortgage
+                } else {
+                    var mortgageDiff = stateInfo.mortgage - mortgageInput
+                };
+                var popScale = d3.scaleLinear()
+                    .domain([(Math.max.apply(null, mortgageList) - Math.min.apply(null, mortgageList)), (0)])
                     .range([0, 100]);
-                var mortgageMatch = mortgageScale(mortgageInput / stateInfo.mortgage)
+                var mortgageMatch = popScale(mortgageDiff)
 
+                //Replace new values in the csv file
                 data[0].score = incomeMatch;
                 data[1].score = popMatch;
                 data[2].score = rentMatch;
@@ -150,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     /* Your D3.js here */
     //Dropdown List
     //Choropleth Dropdown
-    var choropleth_select_options = ['income', ,'rent','mortgage', 'population', 'female_pop', 'male_pop', 'single', 'seperated', 'divorced', 'land', 'water']
+    var choropleth_select_options = ['income', , 'rent', 'mortgage', 'population', 'female_pop', 'male_pop', 'single', 'seperated', 'divorced', 'land', 'water']
 
     var choroplethDropdown = d3.select('select.choropleth');
 

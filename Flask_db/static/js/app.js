@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
             var mortgageInput = d3.select('.mortgage.form-control').property('value');
             console.log(mortgageInput);
 
+            // Set svg to empty to reset aster plot for each new submission
+            d3.select(".aster.container").selectAll('*').remove();
+
             var width = 550,
                 height = 550,
                 radius = Math.min(width, height) / 2,
@@ -39,12 +42,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     return d.width
                 });
 
-            // var tip = d3.tip()
-            //     .attr('class', 'd3-tip')
-            //     .offset([0, 0])
-            //     .html(function (d) {
-            //         return d.data.label + ": <span style='color:red'>" + d.data.score + "</span>"
-            //     });
+            var tip = d3.tip()
+                .attr('class', 'd3-tip')
+                .offset([0, 0])
+                .html(function (d) {
+                    return d.data.label + ": <span style='color:white'>" + (d.data.score).toFixed(0) + "</span>"
+                });
 
             var arc = d3.arc()
                 .innerRadius(innerRadius)
@@ -62,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 .attr("height", height)
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-            // .call(tip);
+                .call(tip);
 
             d3.csv('/static/aster_data.csv', function (err, data) {
 
@@ -147,8 +150,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     .attr("class", "solidArc")
                     .attr("stroke", "gray")
                     .attr("d", arc)
-                // .on('mouseover', tip.show)
-                // .on('mouseout', tip.hide);
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide);
 
                 var outerPath = svg.selectAll(".outlineArc")
                     .data(pie(data))
@@ -183,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     //Choropleth Dropdown
     var choropleth_select_options = ['income', , 'rent', 'mortgage', 'population', 'female_pop', 'male_pop', 'single', 'seperated', 'divorced', 'land', 'water']
 
-    var choroplethDropdown = d3.select('select.choropleth');
+    var choroplethDropdown = d3.select('.choropleth.form-control');
 
     choropleth_select_options.forEach((option) => {
         var choropleth_options = choroplethDropdown.append("option");

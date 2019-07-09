@@ -5,8 +5,8 @@
       <meta charset="UTF-8">
       <title>Date-A-State</title>
       <meta charset="utf-8">
-      <!-- <meta name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+      <meta name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       <!-- Bootstrap CSS -->
       <link rel="stylesheet"
@@ -21,7 +21,6 @@
 
       <!-- d3 JavaScript -->
       <script src="https://d3js.org/d3.v4.min.js"></script>
-      <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
       <script>
             src = 'https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.0.4/chroma.min.js'
       </script>
@@ -40,6 +39,9 @@
             type="text/css"
             href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
 
+      <!-- d3 tooltip for d3 v4 -->
+      <script src="static/js/d3-tip.js"></script>
+
       <!-- Leaflet-Choropleth JavaScript -->
       <script type="text/javascript"
               src="static/js/choropleth.js"></script>
@@ -49,23 +51,6 @@
       <link rel="stylesheet"
             type="text/css"
             href="static/css/style.css">
-
-      <!-- <script src="https://cdn.rawgit.com/uscensusbureau/citysdk/Release1.1/js/citysdk.js"></script>
-      <script src="https://cdn.rawgit.com/uscensusbureau/citysdk/Release1.1/js/citysdk.census.js"></script> -->
-
-      <!-- Optional JavaScript -->
-      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-              integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-              crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-              integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-              crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-              integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-              crossorigin="anonymous"></script> -->
-      <!-- <Script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.js"></script> -->
 </head>
 
 <body>
@@ -80,39 +65,39 @@
 
       <div class="container">
             <div class="row">
-                  <div class="col-md-12 jumbotron text-center">
+                  <div class="alert alert-info border border-warning col-md-12 jumbotron text-center">
                         <h1>Date-A-State</h1>
                         <p>Use the interactive charts below to find your perfect state-mate.</p>
                   </div>
             </div>
 
             <div class="input-group mb-3">
-                  <select class="state form-control">
+                  <select class="border border-warning state state form-control">
                         <option selected>Choose a state</option>
 
                   </select>
                   <div class="input-group-append">
-                        <label class="input-group-text"
+                        <label class="alert-info border border-warning input-group-text"
                                for="inputGroupSelect01">State</label>
                   </div>
             </div>
-
+            
             <div class="input-group mb-3">
-                  <select class="income form-control">
+                  <select class="border border-warning state income form-control">
                         <option selected>Choose your current income level</option>
-                        <option value="15000">$0 - $30,000</option>
+                        <option value="30000">$0 - $30,000</option>
                         <option value="40000">$30,000 - $50,000</option>
                         <option value="60000">$50,000 - $70,000</option>
                         <option value="80000">$70,000+ </option>
                   </select>
                   <div class="input-group-append">
-                        <label class="input-group-text"
+                        <label class="alert-info border border-warning input-group-text"
                                for="inputGroupSelect02">Income Level</label>
                   </div>
             </div>
 
             <div class="input-group mb-3">
-                  <select class="population form-control">
+                  <select class="border border-warning state population form-control">
                         <option selected>Choose desired state population</option>
                         <option value="500000">0 - 1million</option>
                         <option value="2500000">1million - 4million</option>
@@ -120,14 +105,14 @@
                         <option value="1000000">8million+ </option>
                   </select>
                   <div class="input-group-append">
-                        <label class="input-group-text"
+                        <label class="alert-info border border-warning input-group-text"
                                for="inputGroupSelect03">Population</label>
                   </div>
 
             </div>
 
             <div class="input-group mb-3">
-                  <select class="rent form-control">
+                  <select class="border border-warning state rent form-control">
                         <option selected>Choose your rent per month</option>
                         <option value="700">$0 - $800</option>
                         <option value="900">$800 - $1000</option>
@@ -135,13 +120,13 @@
                         <option value="1300">$1200+ </option>
                   </select>
                   <div class="input-group-append">
-                        <label class="input-group-text"
+                        <label class="alert-info border border-warning input-group-text"
                                for="inputGroupSelect02">Monthly Rent</label>
                   </div>
             </div>
 
             <div class="input-group mb-3">
-                  <select class="mortgage form-control">
+                  <select class="border border-warning state mortgage form-control">
                         <option selected>Choose your mortgage per month</option>
                         <option value="300">$0 - $400</option>
                         <option value="500">$400 - $600</option>
@@ -149,22 +134,22 @@
                         <option value="900">$800+ </option>
                   </select>
                   <div class="input-group-append">
-                        <label class="input-group-text"
+                        <label class="alert-info border border-warning input-group-text"
                                for="inputGroupSelect02">Monthly Mortgage</label>
                   </div>
             </div>
 
             <div class="container">
                   <button type="button"
-                          class="btn btn-primary">Submit</button>
+                          class="border border-warning alert-info btn btn-primary">Submit</button>
             </div>
       </div>
       <div class="aster container">
 
       </div>
 
-      <h4>Country Based Choropleth- Choose an option below</h4>
-      <select class="choropleth form-control">
+      <h4>State-by-State Choropleth- Choose an option below</h4>
+      <select class="border border-warning choropleth form-control">
 
       </select>
       <div class="choropleth fluid-container">
@@ -173,8 +158,8 @@
 
             </div>
       </div>
-      <h4>Cluster map showing indepth statistics- Choose an option below</h4>
-      <select class="cluster form-control">
+      <h4>Cluster map showing indepth geographical statistics - Choose an option below</h4>
+      <select class="border border-warning cluster form-control">
 
       </select>
 

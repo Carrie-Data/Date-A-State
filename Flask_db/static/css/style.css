@@ -73,12 +73,21 @@ body {
 }
 
 h4{
-    margin-left: 20px
+    margin-left: 80px
 }
 
-.form-control{
-    width: 20%;
-    margin: 20px
+.choropleth.form-control{
+    width: 40%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+
+.cluster.form-control{
+    width: 40%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 80px;
 }
 
 div#choropleth_map {

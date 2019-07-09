@@ -12,7 +12,7 @@ from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask import send_file
 
-import functions
+# import functions
 #import factor_analysis
 
 app = Flask(__name__)

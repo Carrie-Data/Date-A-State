@@ -23,7 +23,7 @@ app = Flask(__name__)
 #################################################
 
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/Raw_life_census_data.db"
-engine = create_engine("sqlite:///Raw_life_census_data.db")
+engine = create_engine("sqlite:///Flask_db/Raw_life_census_data.db")
 
 import json
 

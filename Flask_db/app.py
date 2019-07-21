@@ -30,7 +30,8 @@ import json
 @app.route("/")
 def index():
     """Return the homepage."""
-    return render_template("index.html")
+    import os
+    return render_template("index.html", os=os)
 
 
 @app.route("/choropleth")
